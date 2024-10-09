@@ -62,6 +62,9 @@ namespace TorusGateway.WebServer
 
             app.UseRouting();
 
+            // CORS 미들웨어 사용
+            app.UseCors("AllowSpecificOrigin");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers(); // MVC 라우팅
