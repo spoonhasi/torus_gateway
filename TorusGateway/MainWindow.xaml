@@ -4,19 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TorusGateway"
+        xmlns:torusControl="clr-namespace:TorusGateway.Torus"
         mc:Ignorable="d"
-        Title="TorusGateway" Height="200" Width="600">
+        Title="TorusGateway" Height="600" Width="1050">
     <Grid>
-        <Button x:Name="ButtonTorusConnect" Content="Torus Connect" Width="120" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button x:Name="ButtonWebServerOpen" Content="WebServer Open" Width="120" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,40,0,0" Width="200">
-            <TextBlock TextWrapping="Wrap" Text="Server Host:" FontFamily="Consolas" Width="80" Height="20"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <TextBox x:Name="TextBoxWebServerHost" FontFamily="Consolas" Text="0.0.0.0" Width="120"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="370,40,0,0" Width="200">
-            <TextBlock TextWrapping="Wrap" Text="Server Port:" FontFamily="Consolas" Width="80" Height="20"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <TextBox x:Name="TextBoxWebServerPort" FontFamily="Consolas" Text="5001" Width="120"/>
-        </StackPanel>
-        <Button x:Name="ButtonWebServerClose" Content="WebServer Close" Width="120" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Button x:Name="ButtonTorusConnect" Content="Torus Connect" Width="120" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <Button x:Name="ButtonWebServerOpen" Content="WebServer Open" Width="120" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,40,0,0" Width="200">
+                <TextBlock TextWrapping="Wrap" Text="Server Host:" FontFamily="Consolas" Width="80" Height="20"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <TextBox x:Name="TextBoxWebServerHost" FontFamily="Consolas" Text="0.0.0.0" Width="120"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="375,40,0,0" Width="200">
+                <TextBlock TextWrapping="Wrap" Text="Server Port:" FontFamily="Consolas" Width="80" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <TextBox x:Name="TextBoxWebServerPort" FontFamily="Consolas" Text="5001" Width="120"/>
+            </StackPanel>
+            <Button x:Name="ButtonWebServerClose" Content="WebServer Close" Width="120" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <Button x:Name="ButtonExpand" Content="" BorderThickness="0" Click="Button_Click" Background="Transparent" VerticalAlignment="Top" Margin="0, 90, 0, 0" Height="20" FontSize="4"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <torusControl:MachineListControl/>
+        </Grid>
     </Grid>
 </Window>

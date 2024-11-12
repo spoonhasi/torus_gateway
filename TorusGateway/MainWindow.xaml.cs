@@ -1,31 +1,68 @@
-﻿using System.Text;
+﻿using Microsoft.VisualBasic;
+using Microsoft.Win32;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using TorusGateway.Torus;
 using TorusGateway.WebServer;
 
 namespace TorusGateway
 {
+    static class Constants
+    {
+        public const string TorusAppGuid = "0C1016A3-45BF-4DE9-B0B8-1ECBB948177D";
+        public const string TorusAppName = "TorusGateway";
+        public const string ConfigFileName = "config.ini";
+    }
+
+    public class NCmachine
+    {
+        public bool activate { get; set; } = false;
+        public string name { get; set; } = "";
+        public int id { get; set; } = 0;
+        public string vendorCode { get; set; } = "";
+        public string address { get; set; } = "";
+        public int port { get; set; } = 0;
+        public string exDllPath { get; set; } = "";
+        public string connectCode { get; set; } = "";
+        public string ncVersionCode { get; set; } = "";
+        public string toolSystem { get; set; } = "";
+        public string username { get; set; } = "";
+        public string password { get; set; } = "";
+    }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public const string torusAppGuid = "0C1016A3-45BF-4DE9-B0B8-1ECBB948177D";
-        public const string torusAppName = "TorusGateway";
-
         private WebServer.WebServer? _webServer;
+
+        private bool isExpanded = false;
+        private const double ExpandedHeight = 600; // 확장할 높이
+        private const double CollapsedHeight = 150; // 기본 높이
+        private const double ExpandedWidth = 1050; // 확장할 너비
+        private const double CollapsedWidth = 600; // 기본 너비
+
         public MainWindow()
         {
-            TorusInit(torusAppName, torusAppGuid);
+            TorusInit(Constants.TorusAppName, Constants.TorusAppGuid);
             InitializeComponent();
+            this.Height = CollapsedHeight;
+            this.Width = CollapsedWidth;
             ButtonWebServerOpen.IsEnabled = false;
             ButtonWebServerClose.IsEnabled = false;
         }
@@ -100,6 +137,21 @@ namespace TorusGateway
                 else if (button == ButtonWebServerClose)
                 {
                     _ = WebServerCloseAsync();
+                }
+                else if (button == ButtonExpand)
+                {
+                    if (!isExpanded)
+                    {
+                        this.Height = ExpandedHeight;
+                        this.Width = ExpandedWidth;
+                    }
+                    else
+                    {
+                        this.Height = CollapsedHeight;
+                        this.Width = CollapsedWidth;
+                    }
+
+                    isExpanded = !isExpanded;
                 }
             }
         }
