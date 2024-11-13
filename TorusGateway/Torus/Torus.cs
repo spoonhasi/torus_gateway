@@ -98,7 +98,15 @@ JSON null 값을 나타냅니다.
             {
                 Interlocked.CompareExchange(ref _connectStatus, Api.Initialize(AppGuid, AppName), -1);
             }
+            catch (System.BadImageFormatException)
+            {
+                LastErrorMessage = "Error: Incorrect Build Mode - Please ensure the application is built in the correct 32-bit or 64-bit mode.";
+            }
             catch (DllNotFoundException)
+            {
+                LastErrorMessage = "Failed to connect to Torus: DLL not found";
+            }
+            catch (System.IO.FileNotFoundException)
             {
                 LastErrorMessage = "Failed to connect to Torus: DLL not found";
             }

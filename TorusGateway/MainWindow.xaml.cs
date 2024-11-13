@@ -74,7 +74,15 @@ namespace TorusGateway
 
         public static int TorusConnect()
         {
-            return Torus.Torus.Instance.Connect();
+            try
+            {
+                return Torus.Torus.Instance.Connect();
+            }
+            catch (System.IO.FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+                return -1;
+            }
         }
 
         public void WebServerOpen(string host, int port)

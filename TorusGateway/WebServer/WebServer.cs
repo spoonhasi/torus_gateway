@@ -45,6 +45,17 @@ namespace TorusGateway.WebServer
     {
         public static void ConfigureServices(IServiceCollection services)//앱에 필요한 서비스들을 등록
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()    // 모든 출처 허용
+                        .AllowAnyMethod()    // 모든 HTTP 메서드 허용
+                        .AllowAnyHeader();   // 모든 헤더 허용
+                });
+            });
+
             services.AddControllers(); //여기에서 Controller를 찾습니다.
         }
 
@@ -63,7 +74,7 @@ namespace TorusGateway.WebServer
             app.UseRouting();
 
             // CORS 미들웨어 사용
-            app.UseCors("AllowSpecificOrigin");
+            app.UseCors("AllowAllOrigins");
 
             app.UseEndpoints(endpoints =>
             {

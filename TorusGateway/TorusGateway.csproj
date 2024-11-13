@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseWPF>true</UseWPF>
+		<PlatformTarget>x86</PlatformTarget>
 	</PropertyGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -17,4 +18,10 @@
 	    <HintPath>..\TorusApi\ItemCS.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="copy /Y &quot;$(SolutionDir)TorusApi\*.dll&quot; &quot;$(TargetDir)&quot;" />
+	</Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="copy /Y &quot;$(SolutionDir)TorusGateway.info&quot; &quot;$(TargetDir)&quot;" />
+	</Target>
 </Project>
